@@ -1,4 +1,4 @@
-# All train data should be in data folder
+# All competition files should be in data folder
 
 # Long to wide format transformation---------------------------------------
 
