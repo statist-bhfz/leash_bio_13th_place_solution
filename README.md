@@ -15,6 +15,8 @@ Our solution consists of 6 weighted ensembles: one ensemble per target for molec
 
 Please be lenient if it happens so some code will need additional manual tweaking to make it work. Models were trained on different environments including bunch of local PCs, kaggle and rented servers on vast.ai (the last one with default CUDA 12.4 pytorch image).
 
+Initial data preparation should be done by sequentially running `prepare_data/make_train_test_split.R` and `prepare_data/replace_dy.py`.
+
 
 # 1. BRD4_shared
 
