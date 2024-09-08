@@ -67,7 +67,7 @@ CNN/cnn_v4                                                           | 0.2493
 Model name                                                           | Model weight
 -------------------------------------------------------------------- | -------------
 GBDT/XGb_ecfp_1024_train_wide_split_by_bb_5f_nonshare_val            | 0.4
-chemberta/model3_5fod_ave.csv                                        | 0.3
+chemberta/model3_5fod_ave                                            | 0.3
 chemberta/tabnet_fold_ave                                            | 0.3
 
 
