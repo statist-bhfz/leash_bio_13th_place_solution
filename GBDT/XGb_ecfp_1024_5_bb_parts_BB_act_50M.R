@@ -8,11 +8,6 @@ library(duckdb)
 scipy_sparse = reticulate::import("scipy.sparse")
 
 # This script was run on RTX 3090, 124 Gb RAM.
-
-# To reproduce the XGb_ecfp_1024_5_bb_parts_BB_act_50M predictions,
-# run it 5 times, each time using a subset of 5 
-# created with make_splits_by_bb.R and its features.
-
 # Set working directory to script location
 setwd("/home/tonia/BELKA/solution_GBDT_models_git/GBDT")
 
