@@ -22,7 +22,7 @@ dbSendQuery(
     max(case when protein_name = 'sEH' then binds else null end) as sEH
   FROM train
   GROUP BY molecule_smiles) 
-  TO 'train_wide.parquet' 
+  TO '../data/train_wide.parquet' 
   (field_ids 'auto')"
 )
 gc()
