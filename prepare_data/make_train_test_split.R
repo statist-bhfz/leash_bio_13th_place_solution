@@ -40,7 +40,8 @@ train_subset <- rbind(
   dt[rowSums(dt[, ..proteins]) == 0][sample(.N, 50e6-binds_any)]
 )
 
-write_parquet(dt, "../data/train_wide_50M.parquet")
+write_parquet(train_subset, "../data/train_wide_50M.parquet")
+rm(train_subset); gc()
 
 # Train-test split --------------------------------------------------------
 
