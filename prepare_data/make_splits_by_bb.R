@@ -125,7 +125,7 @@ write_parquet(
 )
 rm(dt_subset, dt_train, dt_val)
 
-# 4. Split to test and train with overlap by building blocks
+# 4. Divide into 5 parts, each without a subset of blocks
 # for GBDT/XGb_ecfp_1024_5_bb_parts_BB_act_50M model
 
 dt <- read_parquet("../data/train_wide.parquet")
