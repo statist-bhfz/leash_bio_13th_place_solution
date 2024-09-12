@@ -44,7 +44,25 @@ dbExecute(
 ")
 dbDisconnect(con)
 
-# 2. Split to test and train without overlap by building blocks
+# 2. Make 50M subset
+# for XGb_ecfp1024_plus_BB_act_50m_v2_new_bb_XGb_ecfp1024_574 model
+
+dt <- read_parquet("../data/train_wide.parquet")
+setDT(dt)
+
+proteins <- c("BRD4", "HSA", "sEH")
+binds_any <- dt[rowSums(dt[, ..proteins]) > 0, .N]
+
+set.seed(1)
+train_subset <- rbind(
+  dt[rowSums(dt[, ..proteins]) > 0],
+  dt[rowSums(dt[, ..proteins]) == 0][sample(.N, 50e6-binds_any)]
+)
+
+write_parquet(train_subset, "../data/train_wide_50M.parquet")
+rm(train_subset); gc()
+
+# 3. Split to test and train without overlap by building blocks
 # for GBDT/XGb_ecfp_1024_train_wide_split_by_bb_5f_nonshare_val model
 
 dt <- read_parquet("../data/train_wide.parquet")
@@ -107,7 +125,7 @@ write_parquet(
 )
 rm(dt_subset, dt_train, dt_val)
 
-# 3. Split to test and train with overlap by building blocks
+# 4. Split to test and train with overlap by building blocks
 # for GBDT/XGb_ecfp_1024_5_bb_parts_BB_act_50M model
 
 dt <- read_parquet("../data/train_wide.parquet")
