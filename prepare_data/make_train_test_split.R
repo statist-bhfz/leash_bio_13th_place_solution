@@ -27,7 +27,20 @@ dbSendQuery(
 )
 gc()
 
+# Make 50M subset ---------------------------------------------------------
 
+dt <- read_parquet("../data/train_wide.parquet")
+
+proteins <- c("BRD4", "HSA", "sEH")
+binds_any <- dt[rowSums(dt[, ..proteins]) > 0, .N]
+
+set.seed(1)
+train_subset <- rbind(
+  dt[rowSums(dt[, ..proteins]) > 0],
+  dt[rowSums(dt[, ..proteins]) == 0][sample(.N, 50e6-binds_any)]
+)
+
+write_parquet(dt, "../data/train_wide_50M.parquet")
 
 # Train-test split --------------------------------------------------------
 
