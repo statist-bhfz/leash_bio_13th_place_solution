@@ -51,9 +51,9 @@ CNN/cnn_v4                                                           | 0.1939
 
 Model name                                                           | Model weight
 -------------------------------------------------------------------- | -------------
-GBDT/lightgbm_secfp_1024_train_no_test_wide_50M_v1                   | 0.005
+GBDT/lightgbm_secfp_1024_train_no_test_wide_50M                      | 0.005
 GBDT/XGb_secfp1024_mpnn_che2_10Mtnt_last15_by_prot_train_no_test_wide| 0.045
-GBDT/lightgbm_secfp6_2048_train_no_test_wide_40M_v1                  | 0.005
+GBDT/lightgbm_secfp:6_2048_train_no_test_wide_40M                    | 0.005
 GNN/gnn_50M_100M                                                     | 0.0225
 GNN/gnn_50M_100M_v2                                                  | 0.0225
 CNN/cnn_v1                                                           | 0.2007
