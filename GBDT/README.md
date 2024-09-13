@@ -6,7 +6,6 @@ This document outlines the steps required to reproduce solution's GBDT models us
 
 ### 1. XGb_ecfp_1024_train_wide_split_by_bb_5f_nonshare_val
 
-#### Steps:
 1. Make train subset with `make_splits_by_bb.R` (Output: `train_wide_split_by_bb.parquet`).
 2. Generate ECFP 1024 features with `make_molfeat_features.py` for the train subset and test data.
 3. Run `XGb_ecfp_1024_train_wide_split_by_bb_5f_nonshare_val.R` to get test predictions.
@@ -15,7 +14,6 @@ This document outlines the steps required to reproduce solution's GBDT models us
 
 ### 2. lightgbm_secfp_1024_train_no_test_wide_50M and lightgbm_secfp6_2048_train_no_test_wide_40M
 
-#### Steps:
 1. Make train subsets with `make_train_test_split.R` (Outputs: `train_no_test_wide_50M.parquet` and `train_no_test_wide_40M.parquet`).
 2. Generate SECFP 1024 and SECFP:6 2048 features with `make_molfeat_features.py` for the train subsets and test data.
 3. Run `lightgbm_models.ipynb` to get test predictions.
@@ -24,7 +22,6 @@ This document outlines the steps required to reproduce solution's GBDT models us
 
 ### 3. XGb_ecfp1024_plus_BB_act_50m_v2_new_bb_XGb_ecfp1024_574
 
-#### Steps:
 1. Run `make_splits_by_bb.R` to create `train_wide.parquet` and its subset of 50M samples `train_wide_50M.parquet`.
 2. Use `make_molfeat_features.py` to generate ECFP 1024 features for the train subset and test data.
 3. Run `make_bb_features.R` to generate building blocks (BB) features based on `train_wide.parquet` and aligned with `train_wide_50M.parquet` and the test data (Outputs: `bb_features_for_train_wide_50M.parquet` and `bb_features_for_test.parquet`).
@@ -35,7 +32,6 @@ This document outlines the steps required to reproduce solution's GBDT models us
 
 ### 4. XGb_ecfp_1024_5_bb_parts_BB_act_50M
 
-#### Steps:
 1. Run `make_splits_by_bb.R` to create `train_wide.parquet` and split it into 5 parts (Files: `train_wide_bb_split_p(1 to 5).parquet`).
 2. Use `make_molfeat_features.py` to generate ECFP 1024 features for each train subset and test data.
 3. Use `make_bb_features.R` to generate BB features based on `train_wide.parquet` and aligned with the train subsets and test data (Outputs: 5 files `bb_features_for_train_wide_bb_split_p(1 to 5).parquet`, and `bb_features_for_test.parquet`).
@@ -46,7 +42,6 @@ This document outlines the steps required to reproduce solution's GBDT models us
 
 ### 5. XGb_secfp1024_mpnn_che2_10Mtnt_last15_by_prot_train_no_test_wide
 
-#### Steps:
 1. Run `make_train_test_split.R` to create subsets: `train_no_test_wide_50M.parquet` and `train_no_test_wide_10M.csv`.
 2. Generate SECFP 1024 features with `make_molfeat_features.py` for the train subset `train_no_test_wide_50M.parquet` and test data.
 3. Install Chemprop 2.0 and run the following to train the model:
@@ -105,3 +100,12 @@ This document outlines the steps required to reproduce solution's GBDT models us
    ```
 6. Use `combine_features.py` to combine the Chemprop fingerprints with the SECFP features (Output: 3 files `secfp_1024_train_no_test_wide_50M_(BRD4, HSA or sEH).buffer`).
 7. Finally, train the XGBoost model using the script `XGb_secfp1024_mpnn_che2_10Mtnt_last15_by_prot_train_no_test_wide.R` to generate predictions for the test data.
+
+   **Note**: Ensure that the correct file paths are used in all commands. Additionally, make sure Chemprop is correctly installed following the [official installation guide](https://chemprop.readthedocs.io/en/latest/installation.html) before running any Chemprop-related commands.
+
+## Requirements
+R version >= 4.3  
+Python version >= 3.11  
+XGBoost version 2.1.0  
+LightGBM version 4.5.0  
+Chemprop version 2.0.0  
