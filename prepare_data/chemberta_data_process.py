@@ -13,7 +13,7 @@ model_name = "ChemBERTa-77M-MTR"
 seed = 42
 
 # Link to post-processing dataset
-
+# https://www.kaggle.com/datasets/masasato1999/leashbio-13th-processed-dataset
 
 def datasplit_and_tokenize(data_dir, train_num_proc=1, valid_num_proc=5, seed=42):
 
