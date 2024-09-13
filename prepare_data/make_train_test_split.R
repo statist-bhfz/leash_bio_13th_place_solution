@@ -22,20 +22,53 @@ dbSendQuery(
     max(case when protein_name = 'sEH' then binds else null end) as sEH
   FROM train
   GROUP BY molecule_smiles) 
-  TO 'train_wide.parquet' 
+  TO '../data/train_wide.parquet' 
   (field_ids 'auto')"
 )
 gc()
-
-
 
 # Train-test split --------------------------------------------------------
 
 dt <- read_parquet("../data/train_wide.parquet")
 setDT(dt)
+
 set.seed(42)
 test_ids <- sample(1:nrow(dt), 2e6)
 dt_test <- dt[test_ids]
 dt <- dt[!test_ids]
 write_parquet(dt_test, "../data/test_ensemble_wide.parquet")
 write_parquet(dt, "../data/train_no_test_wide.parquet")
+
+# Make 40 and 50M subsets -------------------------------------------------
+# for XGb_secfp1024_mpnn_che2_10Mtnt_last15_by_prot_train_no_test_wide model
+# and LightGBM models
+
+proteins <- c("BRD4", "HSA", "sEH")
+binds_any <- dt[rowSums(dt[, ..proteins]) > 0, .N]
+
+subset_size <- 50e6 # 40e6 for lightgbm_secfp6_2048_train_no_test_wide_40M_v1
+
+set.seed(1)
+train_subset <- rbind(
+  dt[rowSums(dt[, ..proteins]) > 0],
+  dt[rowSums(dt[, ..proteins]) == 0][sample(.N, subset_size-binds_any)]
+)
+
+write_parquet(
+  train_subset,
+  paste0("../data/train_no_test_wide_", subset_size/1e6, "M.parquet")
+)
+
+# Make 10M subset ---------------------------------------------------------
+# for chemprop
+
+proteins <- c("BRD4", "HSA", "sEH")
+binds_any <- dt[rowSums(dt[, ..proteins]) > 0, .N]
+
+set.seed(1)
+train_subset <- rbind(
+  dt[rowSums(dt[, ..proteins]) > 0],
+  dt[rowSums(dt[, ..proteins]) == 0][sample(.N, 10e6-binds_any)]
+)
+fwrite(train_subset[, .(molecule_smiles, BRD4, HSA, sEH)],
+       "../data/train_no_test_wide_10M.csv")

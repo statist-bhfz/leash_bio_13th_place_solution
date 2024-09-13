@@ -15,7 +15,7 @@ Our solution consists of 6 weighted ensembles: one ensemble per target for molec
 
 Please be lenient if it happens so some code will need additional manual tweaking to make it work. Models were trained on different environments including bunch of local PCs, kaggle and rented servers on vast.ai (the last one with default CUDA 12.4 pytorch image).
 
-Initial data preparation should be done by sequentially running `prepare_data/make_train_test_split.R` and `prepare_data/replace_dy.py`.
+Initial data preparation should be done by sequentially running `prepare_data/make_train_test_split.R` and `prepare_data/replace_dy.py`. Please refer to GBDT/README.md for guidance on reproducing the solution's GBDT models.
 
 
 # 1. BRD4_shared
@@ -51,9 +51,9 @@ CNN/cnn_v4                                                           | 0.1939
 
 Model name                                                           | Model weight
 -------------------------------------------------------------------- | -------------
-GBDT/lightgbm_secfp_1024_train_no_test_wide_50M_v1                   | 0.005
+GBDT/lightgbm_secfp_1024_train_no_test_wide_50M                      | 0.005
 GBDT/XGb_secfp1024_mpnn_che2_10Mtnt_last15_by_prot_train_no_test_wide| 0.045
-GBDT/lightgbm_secfp6_2048_train_no_test_wide_40M_v1                  | 0.005
+GBDT/lightgbm_secfp:6_2048_train_no_test_wide_40M                    | 0.005
 GNN/gnn_50M_100M                                                     | 0.0225
 GNN/gnn_50M_100M_v2                                                  | 0.0225
 CNN/cnn_v1                                                           | 0.2007
