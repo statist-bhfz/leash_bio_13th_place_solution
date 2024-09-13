@@ -40,6 +40,7 @@ write_parquet(dt_test, "../data/test_ensemble_wide.parquet")
 write_parquet(dt, "../data/train_no_test_wide.parquet")
 
 # Make 50M subset ---------------------------------------------------------
+# for XGb_secfp1024_mpnn_che2_10Mtnt_last15_by_prot_train_no_test_wide model
 
 proteins <- c("BRD4", "HSA", "sEH")
 binds_any <- dt[rowSums(dt[, ..proteins]) > 0, .N]
@@ -51,3 +52,17 @@ train_subset <- rbind(
 )
 
 write_parquet(train_subset, "../data/train_no_test_wide_50M.parquet")
+
+# Make 10M subset ---------------------------------------------------------
+# for chemprop
+
+proteins <- c("BRD4", "HSA", "sEH")
+binds_any <- dt[rowSums(dt[, ..proteins]) > 0, .N]
+
+set.seed(1)
+train_subset <- rbind(
+  dt[rowSums(dt[, ..proteins]) > 0],
+  dt[rowSums(dt[, ..proteins]) == 0][sample(.N, 10e6-binds_any)]
+)
+fwrite(train_subset[, .(molecule_smiles, BRD4, HSA, sEH)],
+       "../data/train_no_test_wide_10M.csv")
