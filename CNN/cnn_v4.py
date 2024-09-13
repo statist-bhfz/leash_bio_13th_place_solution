@@ -212,3 +212,12 @@ for class_name, target in zip(class_names, TARGETS):
     scores[class_name] = score
     print(f'CV score for {class_name} =', score)
 
+
+preds = model.predict(test, batch_size = 2*CFG.BATCH_SIZE)
+
+tst = pd.read_parquet('test.parquet')
+tst['binds'] = 0
+tst.loc[tst['protein_name']=='BRD4', 'binds'] = preds[(tst['protein_name']=='BRD4').values, 0]
+tst.loc[tst['protein_name']=='HSA', 'binds'] = preds[(tst['protein_name']=='HSA').values, 1]
+tst.loc[tst['protein_name']=='sEH', 'binds'] = preds[(tst['protein_name']=='sEH').values, 2]
+tst[['id', 'binds']].to_csv('submission-cnn-v4.csv', index = False)
