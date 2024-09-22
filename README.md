@@ -1,6 +1,6 @@
 # leash_bio_13th_place_solution
 
-NeurIPS 2024 - Predict New Medicines with BELKA 13th place solution by looseRs team:
+[NeurIPS 2024 - Predict New Medicines with BELKA](https://www.kaggle.com/competitions/leash-BELKA/overview) 13th place solution by looseRs team:
 
 [@yyyu54](https://www.kaggle.com/yyyu54) 
 
